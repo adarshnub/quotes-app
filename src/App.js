@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
 import { useDispatch, useSelector } from "react-redux";
-import {getRandomQuote, getTags} from './selectors/selectors'
-import { fetchRandomQuote ,fetchTagsAPI} from "./actions/actions";
+import {getQuoteByTag, getRandomQuote, getTags} from './selectors/selectors'
+import { fetchQuoteByTagAPI, fetchRandomQuote ,fetchTagsAPI} from "./actions/actions";
 
 
 function App() {
   const dispatch = useDispatch();
   const randomQuote = useSelector(getRandomQuote);
   const tags = useSelector(getTags);
+  const quoteByTag = useSelector(getQuoteByTag);
   const [selectedTag, setSelectedTag] = useState('');
   
   useEffect(() => {
@@ -19,16 +20,17 @@ function App() {
 
 
   const generateRandomQuote = () => {
-    dispatch(fetchRandomQuote());
+    if(selectedTag){
+      dispatch(fetchQuoteByTagAPI(selectedTag));
+    } else {
+      dispatch(fetchRandomQuote());
+    }
   }
 
   const handleTagChange = (e) => {
     const tag = e.target.value;
     setSelectedTag(tag);
-    if(tag){
-      dispatch(fetch)
     }
-  }
 
 
   return (
@@ -61,10 +63,12 @@ function App() {
       justify-center
       items-center
       mt-8"
-      >{randomQuote ? (
+      >{selectedTag && quoteByTag ? (
+          <Card quote={quoteByTag.content} author={quoteByTag.author} />
+        ) : randomQuote ? (
           <Card quote={randomQuote.content} author={randomQuote.author} />
         ) : (
-          <Card text="loading next quote......" />
+          <Card text="loading quote......" />
           // <p>Loading quote...</p>
         )}
          <div 
@@ -81,9 +85,8 @@ function App() {
                 className="rounded-lg
                 px-3
                 py-2"
-                onChange={(e) => {
-                  const selectedTag = e.target.value;
-                }} >
+                onChange={handleTagChange} 
+                value={selectedTag}>
                   <option 
                   value="">Select Tag</option>
                   {tags.map((tag) => (

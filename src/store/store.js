@@ -1,12 +1,13 @@
 import { legacy_createStore as createStore ,applyMiddleware ,combineReducers} from 'redux';
 import thunk from 'redux-thunk';
-import { randomQuoteReducer, tagsReducer } from '../reducers/reducers';
+import { quoteByTagReducer, randomQuoteReducer, tagsReducer } from '../reducers/reducers';
 
 
 
 const rootReducer = combineReducers({
     randomQuote : randomQuoteReducer,
     tags :tagsReducer,
+    quoteByTag : quoteByTagReducer,
 });
 
 

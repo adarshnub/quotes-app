@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,7 @@ function App() {
   const dispatch = useDispatch();
   const randomQuote = useSelector(getRandomQuote);
   const tags = useSelector(getTags);
+  const [selectedTag, setSelectedTag] = useState('');
   
   useEffect(() => {
     dispatch(fetchRandomQuote());
@@ -19,6 +20,14 @@ function App() {
 
   const generateRandomQuote = () => {
     dispatch(fetchRandomQuote());
+  }
+
+  const handleTagChange = (e) => {
+    const tag = e.target.value;
+    setSelectedTag(tag);
+    if(tag){
+      dispatch(fetch)
+    }
   }
 
 
@@ -55,17 +64,49 @@ function App() {
       >{randomQuote ? (
           <Card quote={randomQuote.content} author={randomQuote.author} />
         ) : (
-          <p>Loading quote...</p>
+          <Card text="loading next quote......" />
+          // <p>Loading quote...</p>
         )}
-         <div><input /></div>
+         <div 
+         className=""
+         >
+          {
+            tags.length > 0 && (
+              <div
+              className="text-md
+              font-semibold
+              "
+              >
+                <select
+                className="rounded-lg
+                px-3
+                py-2"
+                onChange={(e) => {
+                  const selectedTag = e.target.value;
+                }} >
+                  <option 
+                  value="">Select Tag</option>
+                  {tags.map((tag) => (
+                    <option key={tag._id} value={tag.slug}>{tag.name}</option>
+                  ))}
+                </select>
+              </div>
+            )
+          }
+         </div>
+        
         <button onClick={generateRandomQuote} > 
           <span className="text-white
           bg-green-600
           rounded-md
           px-4
-          py-1">
+          py-1
+          hover:bg-green-300
+          hover:text-black
+          hover:font-bold">
             Next Quote</span>
         </button>
+        
       </div>
 
     </div>

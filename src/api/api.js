@@ -15,8 +15,8 @@ export const fetchTags = async (endpoint) => {
 }
 
 
-export const fetchQuoteByTag = async (tag) => {
-    const response = await fetch(`${BASE_URL}/random?tag=${tag}`);
+export const fetchQuoteByTag = async (tags) => {
+    const response = await fetch(`${BASE_URL}/random?tags=${tags}`);
     const data = await response.json();
     return data;
 }

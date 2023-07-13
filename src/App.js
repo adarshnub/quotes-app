@@ -89,8 +89,8 @@ function App() {
                 value={selectedTag}>
                   <option 
                   value="">Select Tag</option>
-                  {tags.map((tag) => (
-                    <option key={tag._id} value={tag.slug}>{tag.name}</option>
+                  {tags.map((tags) => (
+                    <option key={tags._id} value={tags.slug}>{tags.name}</option>
                   ))}
                 </select>
               </div>

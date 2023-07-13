@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import Card from "./components/Card";
+import { useDispatch, useSelector } from "react-redux";
+import {getRandomQuote, getTags} from './selectors/selectors'
+import { fetchRandomQuote ,fetchTagsAPI} from "./actions/actions";
+
 
 function App() {
+  const dispatch = useDispatch();
+  const randomQuote = useSelector(getRandomQuote);
+  const tags = useSelector(getTags);
+  
+  useEffect(() => {
+    dispatch(fetchRandomQuote());
+    dispatch(fetchTagsAPI());
+  },[dispatch]);
+
+
+  const generateRandomQuote = () => {
+    dispatch(fetchRandomQuote());
+  }
+
+
   return (
     <div
       className="main-container  
@@ -33,10 +52,13 @@ function App() {
       justify-center
       items-center
       mt-8"
-      >
-        <Card />
-        <div><input /></div>
-        <button>
+      >{randomQuote ? (
+          <Card quote={randomQuote.content} author={randomQuote.author} />
+        ) : (
+          <p>Loading quote...</p>
+        )}
+         <div><input /></div>
+        <button onClick={generateRandomQuote} > 
           <span className="text-white
           bg-green-600
           rounded-md

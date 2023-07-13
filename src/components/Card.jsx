@@ -1,6 +1,6 @@
 import React from "react";
 
-const Card = () => {
+const Card = ({quote,author}) => {
   return (
     <div
       className="bg-red-400
@@ -14,12 +14,12 @@ const Card = () => {
     w-3/4
     "
     >
-      <p>quote</p>
+      <p>{quote}</p>
       <h4
         className="text-sm
         font-bold"
       >
-        ~author
+        ~{author}
       </h4>
     </div>
   );

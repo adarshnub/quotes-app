@@ -11,7 +11,7 @@ export const FETCH_TAGS_FAILURE = 'FETCH_TAGS_FAILURE';
 
 
 //actions
-export const fetchRandomQuotes = () => async (dispatch) => {
+export const fetchRandomQuote = () => async (dispatch) => {
     dispatch({type: RANDOM_QUOTE_REQUEST});
 
     try {
@@ -22,7 +22,7 @@ export const fetchRandomQuotes = () => async (dispatch) => {
     }
 }
 
-export const fetchTags = () => async (dispatch) => {
+export const fetchTagsAPI = () => async (dispatch) => {
     dispatch({ type : FETCH_TAGS_REQUEST});
 
     try {

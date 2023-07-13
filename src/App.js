@@ -31,7 +31,8 @@ function App() {
       flex flex-col
       gap-12
       justify-center
-      items-center"
+      items-center
+      mt-8"
       >
         <Card />
         <div><input /></div>
